@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
+  <link rel="stylesheet" href="https://static.pingendo.com/bootstrap/bootstrap-4.3.1.css">
+</head>
+
+<body style="background-image: url('/static/img/write_background.png');background-size: cover;">
+  <script>
+    function change_user_status(val)  {
+      if(val == 1) {
+        document.querySelector('#user_status').value = 1;
+        document.querySelector('#dropdownMenuLink').innerText = "매우여유";
+      }
+      else if(val == 2) {
+        document.querySelector('#user_status').value = 2;
+        document.querySelector('#dropdownMenuLink').innerText = "여유";
+      }
+      else if(val == 3) {
+        document.querySelector('#user_status').value = 3;
+        document.querySelector('#dropdownMenuLink').innerText = "급함";
+      }
+      else if(val == 4) {
+        document.querySelector('#user_status').value = 4;
+        document.querySelector('#dropdownMenuLink').innerText = "매우급함";
+      }
+      else {
+        document.querySelector('#user_status').value = 1;
+        document.querySelector('#dropdownMenuLink').innerText = "매우여유";
+      }
+    }
+  </script>
+  <div class="py-3 text-center">
+    <div class="container">
+      <div class="row">
+        <div class="mx-auto col-md-6 col-10 bg-white p-3" style="border-radius: 35px;">
+          <h1 class="mb-4" style="font-size: 23px; font-weight: 500; color: #3F4FA5; text-shadow: 0px 0.5px 1px #bdc1dc;">글쓰기</h1>
+          <form style="padding: 10px;" method="POST">
+            <div class="form-group">
+              <div style="text-align: left; color: #3F4FA5; font-weight: 400; margin-top:-15px; margin-bottom: -13px;">
+                <label style="font-size:14px; font-weight: 600;">제목</label>
+              </div>
+              <input type="text" name="title" class="form-control" style="border: 0; box-shadow: 0 0 0; border-bottom: #3F4FA5 1px solid; border-radius: 0px; padding: 0px; font-size: 13px;">
+            </div>
+
+            <div class="form-group py-1">
+              <div style="text-align: left; color: #3F4FA5; font-weight: 400;">
+                <label style="font-size:14px; font-weight: 600;">본문</label>
+              </div>
+              <textarea type="text" name="contents" class="form-control" style="border: 0; box-shadow: 0 0 0; border: #3F4FA5 1px solid; border-radius: 10px; padding: 10px; height: 80px; font-size: 13px;"></textarea>
+            </div>
+
+            <div class="form-group">
+              <div style="text-align: left; color: #3F4FA5; font-weight: 400;">
+                <label style="font-size:14px; font-weight: 600;">위치</label>
+              </div>
+              <input type="text" name="locate" value="서울시 용산구" class="form-control" style="border: 0; box-shadow: 0 0 0; border-bottom: #3F4FA5 1px solid; border-radius: 0px; padding: 0px; font-size: 13px; margin-top: -10px;">
+            </div>
+
+            <div class="form-group">
+              <div style="text-align: left; color: #3F4FA5; font-weight: 400;">
+                <label style="font-size:14px; font-weight: 600;">유저상태</label>
+              </div>
+              <div style="text-align: left;">
+                <div class="btn-group">
+                  <button class="btn dropdown-toggle" style="border: #3F4FA5 1px solid; color: #3F4FA5; font-size: 13px;" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 매우여유 </button>
+                  <div class="dropdown-menu" style="border: #3F4FA5 1px solid; color: #3F4FA5; font-size: 13px;" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="#" onclick="change_user_status(1)">매우여유</a>
+                    <a class="dropdown-item" href="#" onclick="change_user_status(2)">여유</a>
+                    <a class="dropdown-item" href="#" onclick="change_user_status(3)">급함</a>
+                    <a class="dropdown-item" href="#" onclick="change_user_status(4)">매우급함</a>
+                  </div>
+                  <input type="hidden" name="user_status" id="user_status" value="1">
+                </div>
+              </div>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary" style="background-color:#FD6592;color:white;border:0;box-shadow: 1px 1px 1px #746464; width: 100px; border-radius: 10px;">올리기</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+
+</html>

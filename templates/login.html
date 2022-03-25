@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
+  <link rel="stylesheet" href="https://static.pingendo.com/bootstrap/bootstrap-4.3.1.css">
+  <style>
+    body {
+      margin:0;
+      padding:0;
+      background-color: #3F4FA5;
+    }
+    .login_form {
+      border-radius: 20px;
+      border: 0px;
+      box-shadow: 0px 1px 1px #333;
+      padding: 21px;
+    }
+    .login_button {
+      background-color: #FD6592;
+      border: 0;
+      border-radius: 20px;
+      width: 100px;
+      font-size: 14px;
+    }
+    .login_button:hover {
+      background-color: #fb4c80;
+    }
+  </style>
+</head>
+
+<body>
+  <img src="/static/img/login_header.png" style="position: fixed; margin:0; top:0;left:0;">
+  <img src="/static/img/login_footer.png" style="position: fixed; bottom:0; right: 0;">
+  <div class="py-5 fuck" style="margin-top:100px;">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+          <form id="c_form-h" class="" action="/login" method="POST">
+            <div class="form-group row">
+              <div class="col-1"></div>
+              <div class="col-10">
+                <center>
+                  <p style="color:white;">심해</p>
+                </center>
+                <input type="text" class="form-control login_form" name="username" placeholder="ID">
+              </div>
+              <div class="col-1"></div>
+            </div>
+            <div class="form-group row">
+              <div class="col-1"></div>
+              <div class="col-10">
+                <input type="password" class="form-control login_form" name="password" placeholder="Password" style="margin-top: -6px;">
+              </div>
+              <div class="col-1"></div>
+            </div>
+            <div class="form-group row">
+              <div class="col-1"></div>
+              <div class="col-10">
+                <center>
+                  <button type="submit" class="btn btn-primary login_button mb-2">Log in</button>
+                  <br>
+                  <a href="/register" style="font-size:14px; color: #a2a7a7; text-decoration: underline;">회원가입 하러가기</a>
+                </center>
+              </div>
+              <div class="col-1"></div>
+            </div>
+          </form>
+        </div>
+        <div class="col-md-3"></div>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+  function isMobile() {
+      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  }
+  if(isMobile()){
+     // document.querySelector(".fuck").style = "margin-top:150px;"
+  }
+  </script>
+{% with messages = get_flashed_messages() %}
+	{% if messages %}
+		{% for message in messages %}
+		<script>alert("{{ message }}");</script>
+		{% endfor %}
+	{% endif %}
+{% endwith %}
+</body>
+
+</html>

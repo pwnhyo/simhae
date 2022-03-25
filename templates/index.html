@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>main</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
+  <link rel="stylesheet" href="https://static.pingendo.com/bootstrap/bootstrap-4.3.1.css">
+  <style>
+    body {
+      margin:0;
+      padding:0;
+      background-color: #3F4FA5;
+    }
+    .card {
+      border: 0;
+      border-radius: 20px;
+      box-shadow: 0px 1px 1px #333;
+    }
+    .card-link {
+      color: #FD6592;
+    }
+    .login_button {
+      background-color: #FD6592;
+      border: 0;
+      border-radius: 20px;
+      width: 100px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="py-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h3 style="font-weight: 500; color: white;" class="mb-3">게시물</h3>
+          <p id="locate"></p>
+        </div>
+        <div class="col-md-6" style="text-align: right;">
+          <a href="/write"><button class="btn btn-primary login_button" style="height:40px;">글쓰기</button></a>
+        </div>
+        {%for i in range(board_cnt) %}
+        <div class="col-md-12">
+          <div class="card mb-2">
+            <div class="card-body" onclick="get_details({{json_data[i]['no']}})">
+              <img src="/static/img/locate.png" style="width:20px;height:auto;float:left;"><p style="font-size: 14px;">&nbsp;{{ json_data[i]['locate'] }}</p>
+              <h5 class="card-title"><b>{{ json_data[i]['title'] }}</b></h5>
+              <p class="card-text">{{ json_data[i]['contents'][:30] }}...</p>
+              <a href="#" class="card-link">{{ json_data[i]['user_status'].replace("1","매우여유").replace("2","여유").replace("3","급함").replace("4","매우급함")}}</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+      </div>
+    </div>
+  </div>
+  <script src="/static/js/jquery-3.3.1.min.js" ></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script>
+function get_location() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      //alert(position.coords.latitude + ', ' + position.coords.longitude);
+      //document.querySelector("#locate").innerHTML = position.coords.latitude + ', ' + position.coords.longitude;
+    }, function(error) {
+      console.error(error);
+    }, {
+      enableHighAccuracy: false,
+      maximumAge: 0,
+      timeout: Infinity
+    });
+  } else {
+    alert('your device is not support GPS');
+  }
+}
+
+function get_details(pid)
+{
+  location.href = "/detail_order/"+pid;
+}
+
+var tmp = "";
+
+function refresh_list()
+{
+  $.get("/api/get_orders/",function(text)
+  {
+    if(tmp == "")
+      tmp = text;
+    else
+    {
+      if(tmp != text)
+      {
+        text_parse = JSON.parse(text);
+        tmp_parse = JSON.parse(tmp);
+        var i;
+        for(i=text_parse.length-1; i>=0; i--)
+        {
+          if(tmp_parse[0].toString() == text_parse[i].toString())
+          {
+            break;
+          }
+        }
+
+        console.log(i);
+        if(i < 0)
+          return;
+
+
+        for(i+1; i < text_parse.length; i ++)
+        {
+          console.log(text_parse);
+          console.log(i);
+          k = text_parse.length - i  - 1;
+          document.all[17].innerHTML = "<div class=\"card mb-2\"><div class=\"card-body\" onclick=\"get_details("+text_parse[k]['no']+")\"><img src=\"/static/img/locate.png\" style=\"width:20px;height:auto;float:left;\"><p style=\"font-size: 14px;\">&nbsp;"+text_parse[k].locate+"</p><h5 class=\"card-title\"><b>"+text_parse[k].title+"</b></h5><p class=\"card-text\">"+text_parse[k].contents.slice(0,30)+"...</p><a href=\"#\" class=\"card-link\">"+text_parse[k].user_status+"</a></div></div><div class=\"col-mad-12\">" + document.all[17].innerHTML;
+
+        }
+        tmp = text;
+      }
+    }
+  });
+}
+
+setInterval(function(){
+  refresh_list();
+  get_location();
+},5000);
+</script>
+
+</html>
